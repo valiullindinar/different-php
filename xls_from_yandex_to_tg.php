@@ -21,8 +21,15 @@ function parse_xls()
 	
 	
 	$mails_id = imap_search($imap, 'FROM "' . $from_email . '" SINCE "' . $yesterday . '"');
-		
+	
+	$i = 0;
+	
 	foreach ($mails_id as $num) {
+		
+		$i++;
+		if($i > 3){
+			break;
+		}
 		
 		$structure = imap_fetchstructure($imap, $num);
 		if (isset($structure->parts[1])) {
@@ -99,9 +106,6 @@ function parse_xls()
 		}
 		
 		
-		
-		/*ПРОПУСКАЮ ЦИКЛ, ТАК КАК ВСЕГДА 1 ТОЛЬКО ПИСЬМО ПРИХОДИТ*/
-		continue;
 		
 	}
 		
